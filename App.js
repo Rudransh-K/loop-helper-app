@@ -5,6 +5,7 @@ import Task from './components/singleTask';
 
 export default function App() {
 
+  let completedItems = [];
   const [taskEnter, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
   const handleTaskEntry = () => {
@@ -15,15 +16,19 @@ export default function App() {
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems]
+    completedItems.push(itemsCopy[index])
     itemsCopy.splice(index, 1)
     setTaskItems(itemsCopy)
-  }
+    }
+  
+  
 
+  
   return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.listTitle}>
-          Today's Tasks
+          Sahayak
         </Text>
         <View style={styles.taskItems}>
           {
