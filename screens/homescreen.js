@@ -43,7 +43,6 @@ export default function App() {
         </Text>
       <TouchableOpacity
         onPress={handleSignOut}
-        style={styles.listTitle}
       >
         <Text style={styles.buttonText}>Sign out  </Text>
       </TouchableOpacity>
@@ -128,13 +127,12 @@ const styles = StyleSheet.create({
    width: '100%',
    padding: 15,
    borderRadius: 10,
-   alignSelf: 'auto',
    marginTop: 40,
  },
  buttonText: {
-  alignSelf: 'flex-end',
   fontSize: 30,
   color: '#F2F5C8',
   fontWeight: 'bold',
+  alignSelf: 'flex-end'
  },
 });
