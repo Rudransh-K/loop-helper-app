@@ -45,7 +45,7 @@ export default function App() {
         onPress={handleSignOut}
         style={styles.listTitle}
       >
-        <Text style={styles.buttonText}>Sign out   </Text>
+        <Text style={styles.buttonText}>Sign out  </Text>
       </TouchableOpacity>
     </View>
         <View style={styles.taskItems}>
