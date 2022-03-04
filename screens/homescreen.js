@@ -4,7 +4,9 @@ import { useState } from 'react';
 import Task from '../components/singleTask';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import { useNavigation } from '@react-navigation/core'
+import React from 'react'
+import { auth } from '../firebase.js'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,16 +25,29 @@ export default function App() {
     itemsCopy.splice(index, 1)
     setTaskItems(itemsCopy)
     }
-  
-  
+    const navigation = useNavigation()
 
-  
-  return (  
+    const handleSignOut = () => {
+      auth
+        .signOut()
+        .then(() => {
+          navigation.replace("Login")
+        })
+        .catch(error => alert(error.message))
+    }
+    return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.listTitle}>
-          vinayak
+          Shayak
         </Text>
+      <TouchableOpacity
+        onPress={handleSignOut}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
+    </View>
         <View style={styles.taskItems}>
           {
             taskItems.map((item, index) => {
@@ -44,13 +59,11 @@ export default function App() {
               )
             })
           }
-        </View>
       </View>
       <KeyboardAvoidingView
         behaviour={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}>
         <TextInput style={styles.textInput} placeholder={"Type your task"} value={taskEnter} onChangeText={text => setTask(text)} />
-
         <TouchableOpacity onPress={handleTaskEntry}>
           <View style={styles.addWrapper}>
             <Text style={styles.addSign}>+</Text>
@@ -111,7 +124,19 @@ const styles = StyleSheet.create({
   },
   addSign: {
     fontSize: 19
-  }
-
-
+  },
+  button: {
+   width: '25%',
+   padding: 15,
+   borderRadius: 10,
+   alignSelf: 'auto',
+   marginTop: 40,
+ },
+ buttonText: {
+  fontSize: 30,
+  color: '#F2F5C8',
+  fontWeight: 'bold',
+  paddingTop: 10
+  
+ },
 });
