@@ -2,47 +2,50 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity, Keyboard } from 'react-native';
 import { useState } from 'react';
 import Task from '../components/singleTask';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/core'
+import React from 'react'
+const Stack = createNativeStackNavigator();
 
-
-export default function App() {
-
+const SahayakList =()=> {
   let completedItems = [];
-  const [taskEnter, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+  const [sahayakEnter, setSahayak] = useState();
+  const [sahayakList, setSahayakList] = useState([]);
   const handleTaskEntry = () => {
     Keyboard.dismiss();
-    setTaskItems([...taskItems, taskEnter])
-    setTask(null);
+    setSahayakList([...sahayakList, sahayakEnter])
+    setSahayak(null);
   }
 
   const completeTask = (index) => {
-    let itemsCopy = [...taskItems]
-    completedItems.push(itemsCopy[index])
-    itemsCopy.splice(index, 1)
-    setTaskItems(itemsCopy)
+        
     }
-  
-  
+    const navigation = useNavigation()
 
-  
-  return (
+    // const handleSignOut = () => {
+    //   auth
+    //     .signOut()
+    //     .then(() => {
+    //       navigation.replace("Login")
+    //     })
+    //     .catch(error => alert(error.message))
+    // }
+    return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.listTitle}>
-          Sahayak
+          Sahayak List
         </Text>
-<<<<<<< Updated upstream:screens/homeScreen.js
-=======
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={handleSignOut}
       >
         <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
->>>>>>> Stashed changes:screens/homescreen.js
-        <View style={styles.taskItems}>
+        <View style={styles.sahayakList}>
           {
-            taskItems.map((item, index) => {
+            sahayakList.map((item, index) => {
               return (
                 <TouchableOpacity key={index} onPress={() => completeTask(index)}>
                   <Task text={item} />
@@ -51,13 +54,11 @@ export default function App() {
               )
             })
           }
-        </View>
       </View>
       <KeyboardAvoidingView
         behaviour={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}>
-        <TextInput style={styles.textInput} placeholder={"Type your task"} value={taskEnter} onChangeText={text => setTask(text)} />
-
+        <TextInput style={styles.textInput} placeholder={"Type your task"} value={sahayakEnter} onChangeText={text => setSahayak(text)} />
         <TouchableOpacity onPress={handleTaskEntry}>
           <View style={styles.addWrapper}>
             <Text style={styles.addSign}>+</Text>
@@ -68,11 +69,12 @@ export default function App() {
   );
 }
 
+export default SahayakList
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#219F94',
-
   },
   taskWrapper: {
     paddingTop: 40,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     color: '#F2F5C8',
     paddingTop: 10
   },
-  taskItems: {
+  sahayakList: {
     paddingTop: 30,
     paddingLeft: 5,
     paddingRight: 27
@@ -118,11 +120,6 @@ const styles = StyleSheet.create({
   },
   addSign: {
     fontSize: 19
-<<<<<<< Updated upstream:screens/homeScreen.js
-  }
-
-
-=======
   },
   button: {
    width: '100%',
@@ -137,5 +134,4 @@ const styles = StyleSheet.create({
   alignSelf: 'flex-end',
   paddingLeft: 100
  },
->>>>>>> Stashed changes:screens/homescreen.js
 });
